@@ -25,54 +25,66 @@
 #define PB push_back
 #define MP make_pair
 #define all(a) a.begin(),a.end()
+//#define accuracy 0.0001
 using namespace std;
-int degree,a[10];
-
+int a[10],degree;
 
 double Function(double b)
 {
-    double sum=0;
     int i;
+    double sum=0;
     for(i=degree;i>=0;i--)
     {
-        sum+=a[i]*pow(b,i);
+        sum=sum+(a[i]*(pow(b,i)));
     }
     return sum;
 }
+
 int main()
 {
-    int i,j,n;
-    double sum=0,c,b,accuracy,value,x,temp;
+
+    double j,k,b,c,mean,temp;
+    int i;
     cout<<"PRESS THE HIGHEST DEGREE OF THE EQUATION: ";
     cin>>degree;
-    cout<<endl<<"PRESS THE ELEMENTS: ";
+    cout<<endl<<endl;
+    cout<<"PRESS THE CO-EFFICIENT OF THE EQUATION: ";
     for(i=degree;i>=0;i--)
+    {
         cin>>a[i];
-    cout<<endl;
-    cout<<"PRESS THE TWO ROOTS OF THE EQUATION: ";
+    }
+    cout<<endl<<"PLEASE PRESS THE TWO ROOTS: ";
     cin>>b>>c;
-    cout<<endl;
+
     while(Function(b)*Function(c)>0)
     {
-        cout<<"SORRY SIR, YOU PRESSED WRONG ROOTS, PLEASE TRY AGAIN"<<endl;
+        cout<<"SORRY SIR, THE ROOTS U PRESSED IS WRONG, PLEASE TRY AGAIN.."<<endl;
         cin>>b>>c;
     }
+
     if(Function(b)>0)
     {
         temp=b;
         b=c;
         c=temp;
     }
-    cout<<"PRESS THE ACCURACY LEVEL: ";
+
+    cout<<endl<<"PLEASE, PRESS THE ACCURACY LEVEL: ";
+    double accuracy,x;
     cin>>accuracy;
-    value=1/(pow(10,accuracy));
+    double value=1/(pow(10,accuracy));
     do
     {
-        x=((b*Function(c))-(c*Function(b)))/(Function(c)-Function(b));
-        c=b;
-        b=x;
+        x=(b+c)/2;
+        if(Function(x)==0)
+            break;
+        else if(Function(x)<0)
+            b=x;
+        else
+            c=x;
     }
     while(abs(b-c)>value);
-    cout<<endl<<x<<endl;
+    cout<<endl<<x;
     return 0;
 }
+
